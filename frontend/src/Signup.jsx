@@ -1,17 +1,20 @@
 import { useState } from "react";
 import {Link} from 'react-router-dom'
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Signup(){
 
     const [name, setName] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
+    const navigate = useNavigate()
 
     const handleSubmit = (e) => {
         e.preventDefault()
         axios.post('http://localhost:3001/register', {name, email, password})
-        .then (result => console.log(result))
+        .then (result => {console.log(result)
+        navigate('/login')})
         .catch(err => console.log(err))
     }
 
@@ -21,7 +24,7 @@ function Signup(){
                 <h2>Register</h2>
                 <form onSubmit = {handleSubmit}>
                     <div className="mb-3">
-                        <label htmlFor = "email">
+                        <label htmlFor = "name">
                             <strong>Name</strong>
                         </label>
                         <input 
@@ -47,7 +50,7 @@ function Signup(){
                             />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor = "email">
+                        <label htmlFor = "password">
                             <strong>Password</strong>
                         </label>
                         <input 
